@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
@@ -31,7 +30,7 @@ public class ArticleDetailActivity extends AppCompatActivity
     private long mStartId;
 
     private long mSelectedItemId;
-    private int mSelectedItemUpButtonFloor = Integer.MAX_VALUE;
+   // private int mSelectedItemUpButtonFloor = Integer.MAX_VALUE;
     private int mTopInset;
 
     private ViewPager mPager;
@@ -106,6 +105,7 @@ public class ArticleDetailActivity extends AppCompatActivity
                 mSelectedItemId = mStartId;
             }
         }
+      //  getSupportActionBar().hide();
     }
 
     @Override
@@ -142,14 +142,15 @@ public class ArticleDetailActivity extends AppCompatActivity
 
     public void onUpButtonFloorChanged(long itemId, ArticleDetailFragment fragment) {
         if (itemId == mSelectedItemId) {
-            mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
+          //  mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
             updateUpButtonPosition();
         }
     }
 
     private void updateUpButtonPosition() {
-        int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
-        mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
+     //   int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
+       // mUpButton.setTranslationY(Math.min(
+        // - upButtonNormalBottom, 0));
     }
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
@@ -162,7 +163,7 @@ public class ArticleDetailActivity extends AppCompatActivity
             super.setPrimaryItem(container, position, object);
             ArticleDetailFragment fragment = (ArticleDetailFragment) object;
             if (fragment != null) {
-                mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
+            //    mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
                 updateUpButtonPosition();
             }
         }

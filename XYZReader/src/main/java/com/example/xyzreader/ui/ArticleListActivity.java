@@ -117,7 +117,7 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     private void updateRefreshingUI() {
         System.out.println("refreshh "+mIsRefreshing);
-        mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
+        mSwipeRefreshLayout.setRefreshing(false);//mIsRefreshing
     }
 
     @Override

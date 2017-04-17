@@ -55,12 +55,12 @@ public class ArticleDetailFragment extends Fragment implements
     private long mItemId;
     private View mRootView;
     private int mMutedColor = 0xFF333333;
-    private ObservableScrollView mScrollView;
-    private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
+  //  private ObservableScrollView mScrollView;
+   // private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
     private ColorDrawable mStatusBarColorDrawable;
 
     private int mTopInset;
-    private View mPhotoContainerView;
+  //  private View mPhotoContainerView;
     private ImageView mPhotoView;
     private int mScrollY;
     private boolean mIsCard = false;
@@ -71,7 +71,7 @@ public class ArticleDetailFragment extends Fragment implements
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2,1,1);
-    ProgressBar progressBar;
+  //  ProgressBar progressBar;
     MaxWidthLinearLayout viewContent ;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -121,30 +121,30 @@ public class ArticleDetailFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-        mDrawInsetsFrameLayout = (DrawInsetsFrameLayout)
+        /*mDrawInsetsFrameLayout = (DrawInsetsFrameLayout)
                 mRootView.findViewById(R.id.draw_insets_frame_layout);
         mDrawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
             @Override
             public void onInsetsChanged(Rect insets) {
                 mTopInset = insets.top;
             }
-        });
+        });*/
         viewContent = (MaxWidthLinearLayout)mRootView.findViewById(R.id.content_layout);
-        mScrollView = (ObservableScrollView) mRootView.findViewById(R.id.scrollview);
+      /*  mScrollView = (ObservableScrollView) mRootView.findViewById(R.id.scrollview);
         mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
             @Override
             public void onScrollChanged() {
                 mScrollY = mScrollView.getScrollY();
                 getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
-                mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
+              //  mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
                 updateStatusBar();
             }
-        });
+        });*/
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
-        mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
+      //  mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
 
         mStatusBarColorDrawable = new ColorDrawable(0);
 
@@ -158,11 +158,10 @@ public class ArticleDetailFragment extends Fragment implements
             }
         });
         /*Toolbar mytoolbar = (Toolbar) mRootView.findViewById (R.id.toolbar);
-
         setSupportActionBar ( mytoolbar );*/
-        progressBar = (ProgressBar)mRootView.findViewById(R.id.progressBar);
+       // progressBar = (ProgressBar)mRootView.findViewById(R.id.progressBar);
 
-        progressBar.setVisibility(View.VISIBLE);
+       // progressBar.setVisibility(View.VISIBLE);
         bindViews();
         updateStatusBar();
 
@@ -181,7 +180,7 @@ public class ArticleDetailFragment extends Fragment implements
                     (int) (Color.blue(mMutedColor) * 0.9));
         }
         mStatusBarColorDrawable.setColor(color);
-        mDrawInsetsFrameLayout.setInsetBackground(mStatusBarColorDrawable);
+      //  mDrawInsetsFrameLayout.setInsetBackground(mStatusBarColorDrawable);
     }
 
     public class AsyntaskStatusBar extends AsyncTask<Void, Void, Void>{
@@ -233,9 +232,9 @@ public class ArticleDetailFragment extends Fragment implements
 
         if (mCursor != null) {
             mRootView.setAlpha(0);
-            progressBar.setVisibility(View.GONE);
+          //  progressBar.setVisibility(View.GONE);
             //mRootView.setVisibility(View.VISIBLE);
-            mScrollView.setVisibility(View.VISIBLE);
+          //  mScrollView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
             titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
             Date publishedDate = parsePublishedDate();
@@ -253,7 +252,7 @@ public class ArticleDetailFragment extends Fragment implements
                 // If date is before 1902, just show the string
                 bylineView.setText(Html.fromHtml(
                         outputFormat.format(publishedDate) + " by <font color='#ffffff'>"
-                        + mCursor.getString(ArticleLoader.Query.AUTHOR)
+                                + mCursor.getString(ArticleLoader.Query.AUTHOR)
                                 + "</font>"));
 
             }
@@ -282,7 +281,7 @@ public class ArticleDetailFragment extends Fragment implements
                     });
         } else {
             //mRootView.setVisibility(View.GONE);
-            mScrollView.setVisibility(View.GONE);
+          //  mScrollView.setVisibility(View.GONE);
             titleView.setText("N/A");
             bylineView.setText("N/A" );
             bodyView.setText("N/A");
@@ -318,7 +317,7 @@ public class ArticleDetailFragment extends Fragment implements
             mCursor.close();
             mCursor = null;
         }
-      //  progressBar.setVisibility(View.GONE);
+        //  progressBar.setVisibility(View.GONE);
         bindViews();
     }
 
@@ -328,7 +327,7 @@ public class ArticleDetailFragment extends Fragment implements
         bindViews();
     }
 
-    public int getUpButtonFloor() {
+    /*public int getUpButtonFloor() {
         if (mPhotoContainerView == null || mPhotoView.getHeight() == 0) {
             return Integer.MAX_VALUE;
         }
@@ -337,5 +336,5 @@ public class ArticleDetailFragment extends Fragment implements
         return mIsCard
                 ? (int) mPhotoContainerView.getTranslationY() + mPhotoView.getHeight() - mScrollY
                 : mPhotoView.getHeight() - mScrollY;
-    }
+    }*/
 }

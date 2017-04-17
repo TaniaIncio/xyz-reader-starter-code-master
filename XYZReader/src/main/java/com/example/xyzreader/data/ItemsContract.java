@@ -40,6 +40,7 @@ public class ItemsContract {
 
 		/** Matches: /items/[_id]/ */
 		public static Uri buildItemUri(long _id) {
+			System.out.println("base uri " + BASE_URI.buildUpon().appendPath("items").appendPath(Long.toString(_id)).build());
 			return BASE_URI.buildUpon().appendPath("items").appendPath(Long.toString(_id)).build();
 		}
 
