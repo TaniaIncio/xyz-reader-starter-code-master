@@ -31,6 +31,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
@@ -84,7 +86,7 @@ public class ArticleDetailFragment extends Fragment implements
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
         }
-
+        System.out.println("item iddd "+ String.valueOf(mItemId));
         mIsCard = getResources().getBoolean(R.bool.detail_is_card);
         mStatusBarFullOpacityBottom = getResources().getDimensionPixelSize(
                 R.dimen.detail_card_top_margin);
@@ -211,9 +213,28 @@ public class ArticleDetailFragment extends Fragment implements
         Palette.from(image).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                viewContent.setBackgroundColor(palette.getDarkMutedColor(Color.BLUE));
+                HashMap<String, Integer> map = processPallete(palette);
+                viewContent.setBackgroundColor(map.get(map.keySet().toArray()[0]));
             }
         });
+    }
+
+    HashMap<String, Integer> processPallete(Palette palette){
+        HashMap<String, Integer> map = new HashMap();
+        if(palette.getDarkMutedSwatch() != null)
+            map.put("DarkMuted", palette.getDarkMutedSwatch().getRgb());
+        if(palette.getMutedSwatch() != null)
+            map.put("Muted", palette.getMutedSwatch().getRgb());
+        if(palette.getVibrantSwatch() != null)
+            map.put("Vibrant", palette.getVibrantSwatch().getRgb());
+        if(palette.getDarkVibrantSwatch() != null)
+            map.put("DarkVibrant", palette.getDarkVibrantSwatch().getRgb());
+        if(palette.getLightVibrantSwatch() != null)
+            map.put("LightVibrant", palette.getLightVibrantSwatch().getRgb());
+        if(palette.getLightMutedSwatch() != null)
+            map.put("LightMuted", palette.getLightMutedSwatch().getRgb());
+
+        return map;
     }
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {

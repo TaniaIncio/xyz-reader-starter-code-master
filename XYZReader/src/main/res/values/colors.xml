@@ -22,7 +22,7 @@
 
     <color name="colorPrimary">@color/orange_udacity</color>
     <color name="colorPrimaryDark">#e87e0f</color>
-    <color name="colorAccent">#e87e0f</color>
+    <color name="colorAccent">#1565C0</color>
 
     <color name="orange_udacity">#f89024</color>
 </resources>
