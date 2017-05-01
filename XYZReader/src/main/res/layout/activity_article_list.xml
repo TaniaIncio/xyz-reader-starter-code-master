@@ -9,6 +9,7 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="2dp"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -24,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_contentscrolling_image"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/image_main"
                 android:src="@mipmap/collapsing" />
 
             <android.support.v7.widget.Toolbar

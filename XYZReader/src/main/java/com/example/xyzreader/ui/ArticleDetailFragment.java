@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.graphics.Palette;
@@ -43,17 +42,12 @@ public class ArticleDetailFragment extends Fragment implements
     private static final String TAG = "ArticleDetailFragment";
 
     public static final String ARG_ITEM_ID = "item_id";
-    private static final float PARALLAX_FACTOR = 1.25f;
-
     private Cursor mCursor;
     private long mItemId;
     private View mRootView;
     private int mMutedColor = 0xFF333333;
     private ColorDrawable mStatusBarColorDrawable;
-
-    private int mTopInset;
     private ImageView mPhotoView;
-    private int mScrollY;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
 
@@ -98,10 +92,6 @@ public class ArticleDetailFragment extends Fragment implements
 
     }
 
-    public ArticleDetailActivity getActivityCast() {
-        return (ArticleDetailActivity) getActivity();
-    }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -120,37 +110,13 @@ public class ArticleDetailFragment extends Fragment implements
             public void onClick(View view) {
                 startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
                         .setType("text/plain")
-                        .setText("Some sample text")
+                        .setText("Details")
                         .getIntent(), getString(R.string.action_share)));
             }
         });
         bindViews();
 
         return mRootView;
-    }
-
-    private void updateStatusBar() {
-        int color = 0;
-        if (mPhotoView != null && mTopInset != 0 && mScrollY > 0) {
-            float f = progress(mScrollY,
-                    mStatusBarFullOpacityBottom - mTopInset * 3,
-                    mStatusBarFullOpacityBottom - mTopInset);
-            color = Color.argb((int) (255 * f),
-                    (int) (Color.red(mMutedColor) * 0.9),
-                    (int) (Color.green(mMutedColor) * 0.9),
-                    (int) (Color.blue(mMutedColor) * 0.9));
-        }
-        mStatusBarColorDrawable.setColor(color);
-      //  mDrawInsetsFrameLayout.setInsetBackground(mStatusBarColorDrawable);
-    }
-
-    public class AsyntaskStatusBar extends AsyncTask<Void, Void, Void>{
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            updateStatusBar();
-            return null;
-        }
     }
 
     static float progress(float v, float min, float max) {
@@ -203,15 +169,12 @@ public class ArticleDetailFragment extends Fragment implements
                                 + "</font>"));
 
             }
-            System.out.println("imagen "+mCursor.getString(ArticleLoader.Query.PHOTO_URL));
-            System.out.println("imagen texto "+ Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
                             Bitmap bitmap = imageContainer.getBitmap();
-                            System.out.println("imagen descargada");
                             if (bitmap != null) {
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
                                 customColor(bitmap);
@@ -281,14 +244,4 @@ public class ArticleDetailFragment extends Fragment implements
         loadData();
     }
 
-    /*public int getUpButtonFloor() {
-        if (mPhotoContainerView == null || mPhotoView.getHeight() == 0) {
-            return Integer.MAX_VALUE;
-        }
-
-        // account for parallax
-        return mIsCard
-                ? (int) mPhotoContainerView.getTranslationY() + mPhotoView.getHeight() - mScrollY
-                : mPhotoView.getHeight() - mScrollY;
-    }*/
 }

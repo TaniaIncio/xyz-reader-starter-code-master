@@ -17,9 +17,6 @@
 
 <resources>
     <color name="photo_placeholder">#ccc</color>
-
-    <color name="theme_primary">#04561A</color>
-    <color name="theme_primary_dark">#04561A</color>
     <color name="theme_accent">#04561A</color>
     <color name="ltgray">#ffe0e0e0</color>
 
@@ -28,6 +25,4 @@
     <color name="colorAccent">#e87e0f</color>
 
     <color name="orange_udacity">#f89024</color>
-    <color name="orange_udacity_5">#0Df89024</color>
-    <color name="grey_500">#9E9E9E</color>
 </resources>
